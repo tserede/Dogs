@@ -1,3 +1,4 @@
+from ast import increment_lineno
 from tkinter import *
 import requests
 from PIL import Image,ImageTk
@@ -5,7 +6,10 @@ from io import BytesIO
 from tkinter import messagebox as mb
 from tkinter import ttk
 
+from PycharmProjects.Project_01.os.copytree import window
 from bottle import response
+from pygame.draw_py import TOP_EDGE
+from pygame.examples.cursors import image
 
 
 def get_dog_image():
@@ -28,10 +32,14 @@ def show_image():
             response.raise_for_status()#получаем статус ответа. Он пригодится потом для обработки исключений
             img_data=BytesIO(response.content)# по этой ссылке мы загрузили изображение в двоичном коде в переменную img_data
             img=Image.open(img_data) #теперь с помощью пиллоу обрабатываем
-            img.thumbnail((300,300)) #задаем размер картинкам
+            img_size=(int(width_spinbox.get()),int(height_spinbox.get()))
+            img.thumbnail(img_size) #задаем размер картинкам
             img=ImageTk.PhotoImage(img)
-            label.config(image=img) #Загружаем ее в метку
-            label.image=img #чтобы сборщик мусора не удалил картинку, сохраняем ее в переменную
+            new_window=Toplevel(window)
+            new_window.title("Случайное изображение")
+            lb=ttk.Label(new_window,image=img)
+            lb,pack()
+            lb.image=img #чтобы сборщик мусора не удалил картинку, сохраняем ее в переменную
         except Exception as e:
             mb.showerror("Ошибка", f"Возникла ошибка при загрузке изображения {e}")
     progress.stop()
@@ -55,6 +63,19 @@ button.pack(pady=10)
 
 progress=ttk.Progressbar(mode="determinate", length=300) #mode-это режим
 progress.pack(pady=10)
+
+width_label=ttk.Label(text="Ширина:")
+width_label.pack(side="left",padx=(10,0)) #у ttk немного другие параметры.side left означает что будет прижато влево,
+# а padx(10,0) означает что слева будет 10 px,а справа 0
+width_spinbox=ttk.Spinbox(from_=200, to=500, increment=50, width=5)
+width_spinbox.pack(side="left",padx=(10,0))
+
+height_label=ttk.Label(text="Высота:")
+height_label.pack(side="left",padx=(10,0)) #у ttk немного другие параметры.side left означает что будет прижато влево,
+# а padx(10,0) означает что слева будет 10 px,а справа 0
+height_spinbox=ttk.Spinbox(from_=200, to=500, increment=50, width=5)
+height_spinbox.pack(side="left",padx=(10,0))
+
 window.mainloop()
 
 
