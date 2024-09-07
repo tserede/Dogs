@@ -6,11 +6,6 @@ from io import BytesIO
 from tkinter import messagebox as mb
 from tkinter import ttk
 
-from PycharmProjects.Project_01.os.copytree import window
-from bottle import response
-from pygame.draw_py import TOP_EDGE
-from pygame.examples.cursors import image
-
 
 def get_dog_image():
     try:
@@ -38,7 +33,7 @@ def show_image():
             new_window=Toplevel(window)
             new_window.title("Случайное изображение")
             lb=ttk.Label(new_window,image=img)
-            lb,pack()
+            lb.pack()
             lb.image=img #чтобы сборщик мусора не удалил картинку, сохраняем ее в переменную
         except Exception as e:
             mb.showerror("Ошибка", f"Возникла ошибка при загрузке изображения {e}")
@@ -46,8 +41,8 @@ def show_image():
 
 def prog():
     progress['value']=0 #вначале значение будет 0
-    progress.start(30) #Затем будем увеличиваться один раз в 30 милисекунд
-    window.after(3000,show_image) #ждем три секунды и запускаем функцию show_image
+    progress.start(10) #Затем будем увеличиваться один раз в 30 милисекунд
+    window.after(1000,show_image) #ждем три секунды и запускаем функцию show_image
 
 
 
