@@ -66,13 +66,13 @@ width_label.pack(side="left",padx=(10,0)) #у ttk немного другие п
 # а padx(10,0) означает что слева будет 10 px,а справа 0
 width_spinbox=ttk.Spinbox(from_=200, to=500, increment=50, width=5)
 width_spinbox.pack(side="left",padx=(10,0))
-
+width_spinbox.set(300)
 height_label=ttk.Label(text="Высота:")
 height_label.pack(side="left",padx=(10,0)) #у ttk немного другие параметры.side left означает что будет прижато влево,
 # а padx(10,0) означает что слева будет 10 px,а справа 0
 height_spinbox=ttk.Spinbox(from_=200, to=500, increment=50, width=5)
 height_spinbox.pack(side="left",padx=(10,0))
-
+height_spinbox.set(300)
 top_level_window=Toplevel(window)
 top_level_window.title("Изображения собачек")
 
